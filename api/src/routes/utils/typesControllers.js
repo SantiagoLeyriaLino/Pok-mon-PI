@@ -8,7 +8,6 @@ const controllerGetTypes= async() =>{
             const apiData = await axios.get('https://pokeapi.co/api/v2/type');
             const dataTypes = apiData.data.results.map(type =>{return {name: type.name}});
             const newTypes = await Type.bulkCreate(dataTypes);
-            console.log(newTypes)
             return newTypes;
         }
         return bddData;

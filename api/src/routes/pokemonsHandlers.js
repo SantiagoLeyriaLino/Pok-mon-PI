@@ -1,16 +1,13 @@
-const {controllerGetPokemons,controllerGetPokemonsById,controllerGetPokemonsByName,controllerPostPokemons} = require ('./utils/pokemonsControllers');
+const {controllerGetPokemons,
+    controllerGetPokemonsById,
+    controllerGetPokemonsByName,
+    controllerPostPokemons} = require ('./utils/pokemonsControllers');
 
-const getPokemons = (req,res)=>{
+const getPokemons = async(req,res)=>{
     try{
-        if (req.query){
-            var {name}= req.query;
-            var pokemonQuery = controllerGetPokemonsByName(name);
-            res.status(200).json(pokemonQuery)
-        }
-        else{
-            var pokemons = controllerGetPokemons();
-        res.status(200).json(pokemons);
-        }        
+        var {name}= req.query; 
+        var pokemons = await controllerGetPokemons(name);
+        res.status(200).json(pokemons);  
     }catch(err){
         res.status(400).json({error:err.mesage})
     }
