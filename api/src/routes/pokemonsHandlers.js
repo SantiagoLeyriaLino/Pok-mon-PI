@@ -1,6 +1,5 @@
 const {controllerGetPokemons,
-    controllerGetPokemonsById,
-    controllerGetPokemonsByName,
+    controllerGetPokemonsById,    
     controllerPostPokemons} = require ('./utils/pokemonsControllers');
 
 const getPokemons = async(req,res)=>{
