@@ -4,13 +4,17 @@ module.exports = (sequelize) => {
     sequelize.define("Type", {
     
         id:{
-          type:DataTypes.INTEGER,
+          type: DataTypes.INTEGER,
           autoIncrement:true,
           primaryKey:true,
         },
         name: {
           type: DataTypes.ENUM("normal","fighting","flying","poison","ground","rock","bug","ghost","steel","fire","water","grass","electric","psychic","ice","dragon","dark","fairy","unknown","shadow",),
+          unique:true,
           defaultValue:"unknown"
         },    
+      },
+      {
+        timestamps:false,
       });  
     };

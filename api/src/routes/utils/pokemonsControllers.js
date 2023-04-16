@@ -24,16 +24,16 @@ const pokemonsArr = async()=>{
 
 
 const controllerGetPokemons = async(name) =>{
-   if(!name) {
     let pokeArr = await pokemonsArr()
-    
+   if(!name) {
+    // let pokeArr = await pokemonsArr()
     let prueba = pokeArr.map(async (element) => {
         let info = await axios.get(element.url)
         return info.data
     })
 
     let info2 = await Promise.all(prueba);
-
+console.log(info2)
     const mapeoPersonajes = info2.map((pokemon) => {
         return{
             Name: pokemon.name,
@@ -47,59 +47,48 @@ const controllerGetPokemons = async(name) =>{
             Types: pokemon.types.map((type)=>type.type.name)
         }
     });
-    
-    console.log(mapeoPersonajes);
-    
-    return mapeoPersonajes;
-    // let pokeArr = await pokemonsArr()
-    
-    //        let pokemon = pokeArr.map(  (poke)=>{
-    //          axios.get(poke.url)
-            
-            //   return      {
-            //                    id:info.data.id,
-            //                    name: info.data.name,
-            //                    image: info.data.sprites.front_default,
-            //                    hp: info.data.stats[0].base_stat,
-            //                    attack: info.data.stats[1].base_stat,
-            //                    defense: info.data.stats[2].base_stat,
-            //                    speed: info.data.stats[5].base_stat,
-            //                    height: info.data.height || null,
-            //                    weight: info.data.weight || null,
-            //                    types: info.data.types.map((type)=>type.type.name),
+console.log(mapeoPersonajes)
 
-            //         }
-// })
-// let prom = await Promise.all(pokemon);
-//  const totalPokemons = prom.map((pr)=>{console.log(pr)})
-// //     return{
-// //                                 id:pr.id,
-// //                                name: pr.name,
-// //                                image: pr.sprites.front_default,
-// //                                hp: pr.stats[0].base_stat,
-// //                                attack: pr.stats[1].base_stat,
-// //                                defense: pr.stats[2].base_stat,
-// //                                speed: pr.stats[5].base_stat,
-// //                                height: pr.height || null,
-// //                                weight: pr.weight || null,
-// //                                types: pr.types.map((type)=>type.type.name),
-// // }})
-// // console.log(totalPokemons)
-// return totalPokemons
+    let pokemonsDb = await Pokemon.findAll({
+        include: 
+        {
+            model:Type,
+            attributes: ["name"],
+        },
+    });
+
+console.log (pokemonsDb)
+    if(pokemonsDb.length === 0){
+    return mapeoPersonajes
+    }
+    else{
+        let totalPokemon = mapeoPersonajes.concat(pokemonsDb);
+        return totalPokemon;
+        // return pokemonsDb
+   }
+
+    
 }
 else{
-    const pokemon = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`);
-    return{
-        id:pokemon.data.id,
-        name: pokemon.data.name,
-        image: pokemon.data.sprites.front_default,
-        hp: pokemon.data.stats[0].base_stat,
-        attack: pokemon.data.stats[1].base_stat,
-        defense: pokemon.data.stats[2].base_stat,
-        speed: pokemon.data.stats[5].base_stat,
-        height: pokemon.data.height || null,
-        weight: pokemon.data.weight || null,
-        types: pokemon.data.types.map((type)=>type.type.name),
+    let findPoke  = pokeArr.filter((pokemon)=>pokemon.name === name)
+    
+    if (findPoke){
+        const pokemon = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`);
+
+        return{
+            id:pokemon.data.id,
+            name: pokemon.data.name,
+            image: pokemon.data.sprites.front_default,
+            hp: pokemon.data.stats[0].base_stat,
+            attack: pokemon.data.stats[1].base_stat,
+            defense: pokemon.data.stats[2].base_stat,
+            speed: pokemon.data.stats[5].base_stat,
+            height: pokemon.data.height || null,
+            weight: pokemon.data.weight || null,
+            types: pokemon.data.types.map((type)=>type.type.name),
+        }}
+    else{
+        
     }
 }
 
@@ -110,7 +99,15 @@ else{
 
 const controllerGetPokemonsById=(id)=>{};
 
-const controllerPostPokemons=()=>{};
+
+
+
+const controllerPostPokemons=async(id,name,image,hp,attack,defense,speed,height,weight,types)=>{
+
+    const newPokemon = await Pokemon.create(id,name,image,hp,attack,defense,speed,height,weight);
+    newPokemon.addTypes(types)
+    return newPokemon;
+};
 
 module.exports={
     controllerGetPokemons,

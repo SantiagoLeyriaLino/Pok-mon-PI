@@ -4,12 +4,14 @@ const {controllerGetPokemons,
 
 const getPokemons = async(req,res)=>{
     try{
-        var {name}= req.query; 
-        var pokemons = await controllerGetPokemons(name);
-        res.status(200).json(pokemons);  
-    }catch(err){
-        res.status(400).json({error:err.mesage})
+        let {name} = req.query
+        const pokemons = await controllerGetPokemons(name);
+        console.log(pokemons)
+        res.status(200).json(pokemons)
     }
+    catch (err){
+        res.status(400).json({error:err.message})
+        }
 };
 
 const getPokemonsById=(req,res)=>{
@@ -22,10 +24,10 @@ const getPokemonsById=(req,res)=>{
     }
 };
 
-const postPokemons=(req,res)=>{
+const postPokemons=async(req,res)=>{
     try {
-        var pokemon = req.body;
-        var pokemonPost = controllerPostPokemons(pokemon);
+        var {id,name,image,hp,attack,defense,speed,height,weight,types} = req.body;
+        var pokemonPost = await controllerPostPokemons({id,name,image,hp,attack,defense,speed,height,weight,types});
         res.status(200).json(pokemonPost);    
     } catch (err) {
         res.status(400).json({error:err.message})
