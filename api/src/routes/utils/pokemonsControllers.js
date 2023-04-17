@@ -33,9 +33,10 @@ const controllerGetPokemons = async(name) =>{
     })
 
     let info2 = await Promise.all(prueba);
-console.log(info2)
+
     const mapeoPersonajes = info2.map((pokemon) => {
         return{
+            id:pokemon.id,
             Name: pokemon.name,
             Image: pokemon.sprites.back_default,
             Hp: pokemon.stats[0].base_stat,
@@ -47,33 +48,40 @@ console.log(info2)
             Types: pokemon.types.map((type)=>type.type.name)
         }
     });
-console.log(mapeoPersonajes)
 
-    let pokemonsDb = await Pokemon.findAll({
-        include: 
-        {
-            model:Type,
-            attributes: ["name"],
-        },
-    });
+var allPoke = await Pokemon.findAll({
+    include: {
+        model: Type,
+        attributes: ['name'],
+        through: { attributes: [], }
+    }
+});
 
-console.log (pokemonsDb)
-    if(pokemonsDb.length === 0){
+
+    if(allPoke.length === 0){
     return mapeoPersonajes
     }
     else{
-        let totalPokemon = mapeoPersonajes.concat(pokemonsDb);
+        let totalPokemon = mapeoPersonajes.concat(allPoke);
         return totalPokemon;
         // return pokemonsDb
    }
 
-    
+   
 }
 else{
-    let findPoke  = pokeArr.filter((pokemon)=>pokemon.name === name)
-    
-    if (findPoke){
-        const pokemon = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`);
+    try{
+    const pokemonDb = await Pokemon.findAll({
+        where: { name: name },
+        include: {
+            model: Type,
+            attributes: ['name'],
+            through: { attributes: [] },
+        },
+    });
+
+if (pokemonDb.length===0){    
+    const pokemon = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`);
 
         return{
             id:pokemon.data.id,
@@ -87,25 +95,60 @@ else{
             weight: pokemon.data.weight || null,
             types: pokemon.data.types.map((type)=>type.type.name),
         }}
-    else{
+        else{
+            return pokemonDb;
+        }
+    }
         
+    catch(error){
+        throw Error ("Name not found")
+    }
+
     }
 }
 
-}
 
 
 
-
-const controllerGetPokemonsById=(id)=>{};
+const controllerGetPokemonsById= async(id) =>{
+    console.log(id)    
+    if (id % 1 === 0){
+        let pokemon = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`);
+        console.log(pokemon.data)
+        return{
+            id:pokemon.data.id,
+            name: pokemon.data.name,
+            image: pokemon.data.sprites.front_default,
+            hp: pokemon.data.stats[0].base_stat,
+            attack: pokemon.data.stats[1].base_stat,
+            defense: pokemon.data.stats[2].base_stat,
+            speed: pokemon.data.stats[5].base_stat,
+            height: pokemon.data.height || null,
+            weight: pokemon.data.weight || null,
+            types: pokemon.data.types.map((type)=>type.type.name),
+        }
+    }
+    else{
+        const pokemonDb = await Pokemon.findByPk(id,{
+            include: {
+                model: Type,
+                attributes: ['name'],
+                through: { attributes: [] },
+                },
+            });
+        return pokemonDb
+    
+    }
+};
 
 
 
 
 const controllerPostPokemons=async(id,name,image,hp,attack,defense,speed,height,weight,types)=>{
-
-    const newPokemon = await Pokemon.create(id,name,image,hp,attack,defense,speed,height,weight);
-    newPokemon.addTypes(types)
+console.log(types)
+    const newPokemon = await Pokemon.create({id,name,image,hp,attack,defense,speed,height,weight});
+    await newPokemon.addTypes(types)
+    console.log(types)
     return newPokemon;
 };
 

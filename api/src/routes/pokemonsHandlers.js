@@ -14,20 +14,21 @@ const getPokemons = async(req,res)=>{
         }
 };
 
-const getPokemonsById=(req,res)=>{
+const getPokemonsById=async(req,res)=>{
     try {
-        let id = req.params;
-        var pokemonById = controllerGetPokemonsById(id)
+        let {idPokemon} = req.params;
+        console.log(idPokemon)
+        var pokemonById = await controllerGetPokemonsById(idPokemon)
         res.status(200).json(pokemonById);
     } catch (err) {
-        res.status(400).json({error:err.mesage})
+        res.status(400).json({error:"ID not found"})
     }
 };
 
 const postPokemons=async(req,res)=>{
     try {
         var {id,name,image,hp,attack,defense,speed,height,weight,types} = req.body;
-        var pokemonPost = await controllerPostPokemons({id,name,image,hp,attack,defense,speed,height,weight,types});
+        var pokemonPost = await controllerPostPokemons(id,name,image,hp,attack,defense,speed,height,weight,types);
         res.status(200).json(pokemonPost);    
     } catch (err) {
         res.status(400).json({error:err.message})
