@@ -1,4 +1,8 @@
 body {
+  background-image: url('https://www.nintenderos.com/wp-content/uploads/2021/03/Ex0RcMsWQAgISv8-Cropped.jpg');
+ background-repeat: no-repeat;
+ background-attachment: fixed;
+ background-size: cover;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',

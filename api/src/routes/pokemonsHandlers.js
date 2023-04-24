@@ -6,7 +6,6 @@ const getPokemons = async(req,res)=>{
     try{
         let {name} = req.query
         const pokemons = await controllerGetPokemons(name);
-        console.log(pokemons)
         res.status(200).json(pokemons)
     }
     catch (err){
@@ -17,7 +16,6 @@ const getPokemons = async(req,res)=>{
 const getPokemonsById=async(req,res)=>{
     try {
         let {idPokemon} = req.params;
-        console.log(idPokemon)
         var pokemonById = await controllerGetPokemonsById(idPokemon)
         res.status(200).json(pokemonById);
     } catch (err) {
