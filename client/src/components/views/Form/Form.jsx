@@ -39,10 +39,10 @@ export const Form = () =>{
                 attack:"",
                 defense:"",
                 speed:"",
-                height:null,
-                weight:null,
+                height:"",
+                weight:"",
                 types:[]
-            })}
+            });dispatch(clearPokemon())}
         }, [pokemonCreated]);
     const handleChange = (event) =>{
         setPokemonData({
