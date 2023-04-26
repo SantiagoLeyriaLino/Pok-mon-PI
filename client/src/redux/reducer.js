@@ -22,13 +22,13 @@ const rootReducer = (state = initialState, action) => {
             return {...state, types:[...action.payload]};
 
         case CLEAR_POKEMONS:
-            return {...state, pokemons:[...action.payload]}
+            return {...state, pokemonCreated:[...action.payload]}
 
         case GET_POKEMON:
             return {...state, pokemons:[action.payload]}
 
         case POST_POKEMON:
-            return {...state}
+            return {...state, pokemonCreated:action.payload}
 
         case FILTER_BY_TYPE:
             var originalAllPokemons = state.originalPokemonsAll

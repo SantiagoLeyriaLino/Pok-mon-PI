@@ -1,5 +1,11 @@
-export const validate =(input)=>{
+export const validate =(input,pokemonsAll)=>{
     let errors = {};
+    if(input.name && pokemonsAll && pokemonsAll.length>0){
+        let compare =pokemonsAll.filter((pokemon)=>pokemon.Name==input.name)
+        if (compare.length>0){
+            errors.name =  'Existing name'
+        }
+    }
     if(!input.name){
         errors.name = 'Name is required'
     }

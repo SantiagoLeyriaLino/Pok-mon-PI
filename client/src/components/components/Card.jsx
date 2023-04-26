@@ -1,15 +1,21 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import './Card.css'
 
 export const Card = ({name,image,types,id}) =>{
     var typesString = types.join(', ')
     return(
+        <div className="card">
+        <Link to={`/home/detail/${id}`} style={{ textDecoration: 'none' }} >
+        {/* <div className="card"> */}
         <div>
+            {/* <Link to={`/home/detail/${id}`} > */}
+            <h3><span>Name:</span> {name}</h3>
+            {/* </Link> */}
             <img src={image} alt={`img pokemon ${name}`} />
-            <Link to={`/home/detail/${id}`} >
-            <h3>Name: {name}</h3>
-            </Link>
-            <h5>Type / Types:   {typesString}</h5>
+            <h4><span>Type/Types:</span>   {typesString}</h4>
+        </div>
+        </Link>
         </div>
     );
 }

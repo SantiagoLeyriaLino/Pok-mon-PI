@@ -1,3 +1,4 @@
+import './Home.css'
 import React from "react";
 import { useState, useEffect } from "react";
 import {useDispatch, useSelector} from 'react-redux';
@@ -13,7 +14,7 @@ export const Home = () =>{
     // const types = await axios.get('http://localhost:3001/types')    
     
     const dispatch = useDispatch();
-    const location = useLocation()
+    // const location = useLocation()
     const {pokemons,types,pokemonsAll,filterType,filterOrigin} = useSelector((state)=>state);
     const [currentPage, setCurrentPage] = useState(1);
     const [pokemonsPerPage, setPokemonsPerPage] = useState(12);
@@ -25,14 +26,18 @@ export const Home = () =>{
         setCurrentPage(pageNumbers);
     }
     
-    useEffect(()=>{
+    if(types.length===0 && pokemons && pokemons.length===0){
         dispatch(getTypes());
-        return()=>{dispatch(clearPokemon())}
-    },[location]);
-
-    useEffect(()=>{
         dispatch(getPokemons())
-    },[types]);
+    }
+    // useEffect(()=>{
+    //     dispatch(getTypes());
+    //     return()=>{dispatch(clearPokemon())}
+    // },[location]);
+
+    // useEffect(()=>{
+    //     dispatch(getPokemons())
+    // },[types]);
     
     // useEffect(() => {
     //     return () => {
@@ -49,11 +54,13 @@ export const Home = () =>{
     const handleFilterType = (event) =>{
         dispatch(filterPokemonsByType(event.target.value))
         setCurrentPage(1)
+        event.target.value = 'null'
     }
 
     const handleFilterOrigin = (event) =>{
         dispatch(filterPokemonsByOrigin(event.target.value))
         setCurrentPage(1)
+        event.target.value = 'null'
     }
 
     const handlerOrder = (event) =>{
@@ -65,11 +72,11 @@ export const Home = () =>{
     }
 
     return (
-        <div>
+        <div className='home'>
             
-            <SearchBar />
+            <SearchBar setCurrentPage={setCurrentPage}/>
             <button onClick={handleClick}>Reload my pokemons</button>
-            <div>
+            <div className='div-filter'>
             <label for = "order">Sort by: </label>
             <select id="order" onChange={event=>handlerOrder(event)}>
                 <option value='null'>Select</option>
@@ -82,6 +89,7 @@ export const Home = () =>{
 
             <label for = "filter">  Filter by Origin: </label>
             <select id="filter" onChange={event=>handleFilterOrigin(event)}>
+                <option value='null'>Select</option>
                 <option value="all">All</option>
                 <option value="created">Created</option>
                 <option value="default">Default</option>
@@ -89,6 +97,7 @@ export const Home = () =>{
 
             <label for = "pkemonTypes">  Filter by Type: </label>
                     <select id="pokemonsTypes" onChange={event=>handleFilterType(event)}>
+                    <option value='null'>Select</option>
                         <option value="all">All</option> 
                         {types.map((type)=>{
                             return(

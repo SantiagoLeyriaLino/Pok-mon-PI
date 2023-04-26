@@ -1,0 +1,25 @@
+.nav{
+    background-color: hsla(0, 88%, 54%, 0.9);
+    padding: 0rem;
+    margin-bottom: 1rem;
+}
+.links{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0px 10px 10px 10px;
+    padding: 0rem 30rem 0rem 30rem;
+}
+.img{
+    width: 15%;
+    margin-bottom: 0px;
+}
+.nav p{
+    -webkit-text-stroke: 1px hsla(0, 0%, 100%, 0.9);
+    color: rgb(255, 255, 255);
+}
+.nav p:hover{
+    color:yellow;
+    filter: drop-shadow(8px 8px 4px #ffee00e5);
+    -webkit-text-stroke: 1px #ffee00e5;
+}

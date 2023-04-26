@@ -102,10 +102,12 @@ export const postPokemon = (pokemon) => {
         try{
         const response = await axios.post('http://localhost:3001/pokemons',pokemon);
         return dispatch({
-            type: POST_POKEMON,  
+            type: POST_POKEMON,
+            payload: response.data,  
         })}
         catch(error){
-            throw Error(error.message)
+            console.log(error.message)
+            // alert("An error occurred when creating the pokemon, reloading the page could be a possible solution, if the problem persists contact the developer")
         }
     }
 }

@@ -1,3 +1,4 @@
+import './SearchBar.css'
 import React from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
@@ -6,7 +7,7 @@ import { Link } from "react-router-dom";
 
 
 
-export const SearchBar = () =>{
+export const SearchBar = ({setCurrentPage}) =>{
     const dispatch = useDispatch();
     const [value,setValue] = useState("");
 
@@ -19,15 +20,17 @@ export const SearchBar = () =>{
         if(value.length > 0){
         event.preventDefault();
         dispatch(getPokemon(value))
-        setValue("")}
+        setValue("")
+        setCurrentPage(1)
+    }
         else{alert('invalid value')}
     }
 
     return (
-        <div>
-           <input type='text' placeholder="search by name or id" onChange={(event)=>handleInputChange(event)} value={value}/>
+        <div className='searchdiv'>
+           <input type='text' className='searchInput' placeholder="search by name or id" onChange={(event)=>handleInputChange(event)} value={value}/>
         <Link to='/home'>
-        <button type='submit' onClick={(event)=>handleSubmit(event)}>Search</button> 
+        <button type='submit'  onClick={(event)=>handleSubmit(event)}>Search</button> 
         </Link>
         </div>
      );

@@ -39,7 +39,7 @@ const controllerGetPokemons = async(name) =>{
         return{
             id:pokemon.id,
             Name: pokemon.name,
-            Image: pokemon.sprites.front_default,
+            Image: pokemon.sprites.other.home.front_default,
             Hp: pokemon.stats[0].base_stat,
             Attack: pokemon.stats[1].base_stat,
             Defense: pokemon.stats[2].base_stat,
@@ -105,7 +105,7 @@ if (pokemonDb.length===0){
         return{
             id:pokemon.data.id,
             Name: pokemon.data.name,
-            Image: pokemon.data.sprites.front_default,
+            Image: pokemon.data.sprites.other.home.front_default,
             Hp: pokemon.data.stats[0].base_stat,
             Attack: pokemon.data.stats[1].base_stat,
             Defense: pokemon.data.stats[2].base_stat,
@@ -156,7 +156,7 @@ const controllerGetPokemonsById= async(id) =>{
         return{
             id:pokemon.data.id,
             Name: pokemon.data.name,
-            Image: pokemon.data.sprites.front_default,
+            Image: pokemon.data.sprites.other.home.front_default,
             Hp: pokemon.data.stats[0].base_stat,
             Attack: pokemon.data.stats[1].base_stat,
             Defense: pokemon.data.stats[2].base_stat,

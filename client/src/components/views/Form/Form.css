@@ -1,0 +1,33 @@
+.contenedor{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+.form {
+    display: flex;
+    flex-direction: column;
+    border-radius: 2rem;
+    justify-content: center;
+    align-items: center;
+    background-color:  hsla(209, 91%, 13%, 0.9);
+    width: 70%;
+    gap: 2rem;
+    padding-bottom: 3rem;
+}
+.form input {
+    margin-bottom: 20px;
+  }
+.form label{
+    color: rgb(234, 248, 31);
+    -webkit-text-stroke: 0.1px blue;
+    -webkit-text-fill-color: yellow;
+}
+.form span{
+    color: red;
+}
+.form h1 {
+    color: rgb(234, 248, 31);
+    -webkit-text-stroke: 1px blue;
+   -webkit-text-fill-color: yellow;
+}

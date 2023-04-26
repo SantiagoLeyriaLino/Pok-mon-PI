@@ -1,8 +1,9 @@
 import React from 'react';
+import './Form.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { validate } from '../../../utils/validate';
-import {postPokemon, getTypes} from '../../../redux/actions';
+import {postPokemon, getTypes, clearPokemon} from '../../../redux/actions';
 // import { validateErrors } from '../../../utils/validate';
 
 export const Form = () =>{
@@ -12,7 +13,7 @@ export const Form = () =>{
         dispatch(getTypes())
     },[]);
     
-    const {types, pokemonCreated} = useSelector((state)=>state);
+    const {types, pokemonCreated, pokemonsAll} = useSelector((state)=>state);
 
     const [errors, setErrors] = useState(validate({}));
 
@@ -23,8 +24,8 @@ export const Form = () =>{
 	    attack:"",
 	    defense:"",
 	    speed:"",
-	    height:"",
-	    weight:"",
+	    height:null,
+	    weight:null,
 	    types:[]
     });
 
@@ -36,7 +37,7 @@ export const Form = () =>{
         setErrors(validate({
             ...pokemonData,
             [event.target.name]:event.target.value,
-        }))
+        }, pokemonsAll))
     }
 
     const handleCheck =(event)=>{
@@ -47,7 +48,7 @@ export const Form = () =>{
             if(noRepeat.length==longTypes){
                 setPokemonData({
                     ...pokemonData,
-                    types:[...pokemonData.types, number]
+                    types:[...pokemonData.types, (number/1)]
                 })
             }
             else{
@@ -59,7 +60,7 @@ export const Form = () =>{
         else{
         setPokemonData({
             ...pokemonData,
-            types:[...pokemonData.types,number]
+            types:[...pokemonData.types,(number/1)]
         })}
     }
 
@@ -71,7 +72,7 @@ export const Form = () =>{
         event.preventDefault();
         console.log(pokemonData);
         dispatch(postPokemon(pokemonData));
-        alert("personaje creado con exito");
+        (pokemonCreated && pokemonCreated.name.length>0) && alert("personaje creado con exito");
         setPokemonData({
             name:"",
             image:"",
@@ -79,16 +80,17 @@ export const Form = () =>{
             attack:"",
             defense:"",
             speed:"",
-            height:"",
-            weight:"",
+            height:null,
+            weight:null,
             types:[]
         })
+        // dispatch(clearPokemon())
     }
 
      return(
         
-            <div>
-                <form onSubmit={(event)=>handleSubmit(event)}>
+            <div className='contenedor' >
+                <form onSubmit={(event)=>handleSubmit(event)} className='form' >
                 <div>
                     <h1>Create your own pokemon!!</h1>
                 </div>
@@ -134,6 +136,7 @@ export const Form = () =>{
                         <input type="number" min="0" value={pokemonData.weight} name='weight' onChange={handleChange}/>
                         {errors.weight && (<span>{errors.weight}</span>)}
                     </div>
+                    <div>{( !pokemonData || pokemonData.types.length<1 ) && (<span>select at least one type</span>)}</div>
                     <div>
                         <label>Type/Tipes: </label>
                         {types.map((type)=>{
@@ -143,7 +146,7 @@ export const Form = () =>{
                         })}
                         <div>
                         {!errors || (errors.name||errors.attack||errors.defense||errors.hp||errors.image||errors.speed) || !pokemonData || pokemonData.types.length<1 ? (
-                            <p>faltan campos por llenar</p>
+                            <span>There are still incomplete required fields</span>
                             ) : (
                                 <button type='submit'>Submit</button>
                                 )}
