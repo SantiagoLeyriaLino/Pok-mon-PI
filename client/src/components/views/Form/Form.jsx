@@ -3,7 +3,7 @@ import './Form.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { validate } from '../../../utils/validate';
-import {postPokemon, getTypes, clearPokemon} from '../../../redux/actions';
+import {postPokemon, getTypes, clearPokemon,getPokemons} from '../../../redux/actions';
 // import { validateErrors } from '../../../utils/validate';
 
 export const Form = () =>{
@@ -42,7 +42,7 @@ export const Form = () =>{
                 height:"",
                 weight:"",
                 types:[]
-            });dispatch(clearPokemon())}
+            });dispatch(clearPokemon());dispatch(getPokemons())}
         }, [pokemonCreated]);
     const handleChange = (event) =>{
         setPokemonData({
