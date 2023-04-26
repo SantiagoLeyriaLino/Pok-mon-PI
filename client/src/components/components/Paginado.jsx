@@ -1,27 +1,25 @@
 import React from "react";
 import './Paginado.css'
+import { useEffect } from "react";
 
 
-export const Paginado = ({pokemonsPerPage, pokemons, paginado}) =>{
+export const Paginado = ({pokemonsPerPage, pokemons, paginado,currentPage}) =>{
     let pageNumbers = [];
 
     for ( let i=1; i<=Math.ceil(pokemons/pokemonsPerPage); i++){
         pageNumbers.push(i);
     }
 
-    const elementosLista = document.querySelectorAll('.lista-elemento');
-
-function cambiarEstilos() {
-  elementosLista.forEach(elemento => {
-    elemento.classList.remove('seleccionado');
-  });
-
-  this.classList.add('seleccionado');
-}
-
-elementosLista.forEach(elemento => {
-  elemento.addEventListener('click', cambiarEstilos);
-});
+    useEffect(() => {
+        const elementosLista = document.querySelectorAll('.lista-elemento');
+        elementosLista.forEach(elemento => {
+            if (elemento.id === `elemento${currentPage}`) {
+                elemento.classList.add('seleccionado');
+            } else {
+                elemento.classList.remove('seleccionado');
+            }
+        });
+    }, [currentPage]);
 
     return(
         <nav>

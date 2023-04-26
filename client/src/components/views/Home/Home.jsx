@@ -108,7 +108,7 @@ export const Home = () =>{
             </div>
         <div>
         { (pokemons && pokemons.length) ?(<>   
-             <Paginado pokemonsPerPage={pokemonsPerPage} pokemons={pokemons.length} paginado={paginado} />
+             <Paginado pokemonsPerPage={pokemonsPerPage} pokemons={pokemons.length} paginado={paginado} currentPage={currentPage}/>
             <div>
                 <Cards currentPokemons={currentPokemons} />
             </div>

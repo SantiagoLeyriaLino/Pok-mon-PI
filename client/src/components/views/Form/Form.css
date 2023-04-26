@@ -31,3 +31,15 @@
     -webkit-text-stroke: 1px blue;
    -webkit-text-fill-color: yellow;
 }
+.form button{
+    width: 9rem;
+    color:hsla(0, 0%, 100%, 0.9);
+    -webkit-text-stroke: 1px hsla(0, 0%, 100%, 0.9);
+    border: 2px solid #f03838;
+    background-color: hsla(209, 94%, 55%, 0.7);
+    border-radius: 10px;
+    font-size: 0.9rem;
+}
+.form button:hover{
+    background-color: rgb(234, 248, 31);
+}

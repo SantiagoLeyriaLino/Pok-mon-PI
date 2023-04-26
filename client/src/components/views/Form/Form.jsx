@@ -29,6 +29,21 @@ export const Form = () =>{
 	    types:[]
     });
 
+    useEffect(() => {
+        if (pokemonCreated&&pokemonCreated.name) {
+            alert("personaje creado con exito");
+            setPokemonData({
+                name:"",
+                image:"",
+                hp:"",
+                attack:"",
+                defense:"",
+                speed:"",
+                height:null,
+                weight:null,
+                types:[]
+            })}
+        }, [pokemonCreated]);
     const handleChange = (event) =>{
         setPokemonData({
             ...pokemonData,
@@ -72,18 +87,21 @@ export const Form = () =>{
         event.preventDefault();
         console.log(pokemonData);
         dispatch(postPokemon(pokemonData));
-        (pokemonCreated && pokemonCreated.name.length>0) && alert("personaje creado con exito");
-        setPokemonData({
-            name:"",
-            image:"",
-            hp:"",
-            attack:"",
-            defense:"",
-            speed:"",
-            height:null,
-            weight:null,
-            types:[]
-        })
+        // if (pokemonCreated &&pokemonCreated.name&&pokemonCreated.name.length){
+           
+        // if (pokemonCreated && pokemonCreated.name){
+        // alert("personaje creado con exito");
+        // setPokemonData({
+        //     name:"",
+        //     image:"",
+        //     hp:"",
+        //     attack:"",
+        //     defense:"",
+        //     speed:"",
+        //     height:null,
+        //     weight:null,
+        //     types:[]
+        // })}
         // dispatch(clearPokemon())
     }
 
