@@ -1,8 +1,17 @@
 import React from "react";
 import './Landing.css'
+import { getTypes,getPokemons } from "../../../redux/actions";
 import { Link } from "react-router-dom";
+import { useDispatch,useSelector } from "react-redux";
 
 const Landing = () =>{
+    const dispatch = useDispatch()
+    const {pokemons,types} = useSelector((state)=>state);
+    if(types.length===0 && pokemons && pokemons.length===0){
+        dispatch(getTypes());
+        dispatch(getPokemons())
+    }
+
     return (
         <div className="landing">
             <div className="div-elements">

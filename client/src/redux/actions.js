@@ -106,8 +106,8 @@ export const postPokemon = (pokemon) => {
             payload: response.data,  
         })}
         catch(error){
-            console.log(error.message)
-            // alert("An error occurred when creating the pokemon, reloading the page could be a possible solution, if the problem persists contact the developer")
+            console.log(error.response.data)
+            alert(error.response.data.error)
         }
     }
 }

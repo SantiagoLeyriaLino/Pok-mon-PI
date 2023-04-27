@@ -12,7 +12,7 @@ export const Card = ({name,image,types,id}) =>{
             {/* <Link to={`/home/detail/${id}`} > */}
             <h3><span>Name:</span> {name}</h3>
             {/* </Link> */}
-            <img src={image} alt={`img pokemon ${name}`} />
+            {image.length?<img src={image} alt={`img pokemon ${name}`} />:<div className="loading-container"><div className="loading"></div></div>}
             <h4><span>Type/Types:</span>   {typesString}</h4>
         </div>
         </Link>

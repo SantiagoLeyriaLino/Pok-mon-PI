@@ -25,6 +25,7 @@
 }
 .form span{
     color: red;
+    filter: drop-shadow(8px 8px 4px #ffee00e5);
 }
 .form h1 {
     color: rgb(234, 248, 31);

@@ -3,4 +3,9 @@
     flex-wrap: wrap;
     justify-content: center;
     padding: 2rem;
+    opacity: 0;
+  transition: opacity 1s ease;
 }
+.cards-div.loaded {
+    opacity: 1;
+  }

@@ -16,8 +16,11 @@
     -webkit-text-stroke: 1px hsla(61, 100%, 54%, 0.9);
     padding: 5px 10px;
     border: 2px solid hsla(209, 100%, 26%, 0.959);
+    transition: transform 0.2s ease-out;
   }
-  
+.lista-elemento:hover{
+  transform: translateY(-8px);
+}
   .lista-elemento.seleccionado {
     background-color: rgba(255, 60, 0, 0.651);
   color: hsla(59, 100%, 58%, 0.959);

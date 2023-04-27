@@ -6,6 +6,11 @@ import axios from "axios";
 export const Detail =()=>{
     const {id} = useParams()
     const [pokemon, setPokemon] = useState();
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        setLoading(false);
+      }, []);
 
     useEffect(()=>{
         axios.get(`http://localhost:3001/pokemons/${id}`)
@@ -17,7 +22,7 @@ export const Detail =()=>{
         <div className='detail'>
             {
             (pokemon && pokemon.Name) ?
-                (<div className='div-container'>
+                (<div className="div-container">
                 <h1>{pokemon.Name}</h1>
                 <div className='pokemon-detail-div'>   
                 <div className='div-image'>
@@ -34,7 +39,11 @@ export const Detail =()=>{
                 </div>
                 </div>
                 </div>)
-                : (<h3>Loading...</h3>)
+                : (<div className="loading-container">
+                <div className="loading"></div>
+                 <h3>Loading...</h3>
+                </div>
+                )
             }
         </div>
         

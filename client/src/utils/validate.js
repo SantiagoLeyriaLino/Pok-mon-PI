@@ -9,6 +9,9 @@ export const validate =(input,pokemonsAll)=>{
     if(!input.name){
         errors.name = 'Name is required'
     }
+    if(input.name && input.name.length > 0 && input.name.includes('-')){
+        errors.name = 'Character "-" not valid for name'
+    }
     if(input.name && input.name.length < 3){
         errors.name = 'The name cannot be less than 3 characters'
     }

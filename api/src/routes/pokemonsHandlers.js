@@ -26,10 +26,14 @@ const getPokemonsById=async(req,res)=>{
 const postPokemons=async(req,res)=>{
     try {
         var {id,name,image,hp,attack,defense,speed,height,weight,types} = req.body;
+        if(!name||!image||!hp||!attack||!defense||!speed||!types){
+            throw Error('insufficient fields')
+        }
+        else{
         var pokemonPost = await controllerPostPokemons(id,name,image,hp,attack,defense,speed,height,weight,types);
-        res.status(200).json(pokemonPost);    
-    } catch (err) {
-        res.status(400).json({error:err.message})
+        res.status(200).json(pokemonPost);}    
+    } catch (error) {
+        res.status(400).json({error:error.message})
     }
 }
 
