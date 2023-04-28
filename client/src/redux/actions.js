@@ -19,7 +19,7 @@ export const getPokemons = () =>{
             payload: allPokemons,
         })}
         catch(error){
-           throw new Error (error)
+           alert('Something went wrong, try reloading. If the problem persists contact the developer')
         }
     }
 }
@@ -41,7 +41,7 @@ export const getTypes = () =>{
                 payload: allTypes
             })
         }catch(error){
-            throw new Error (error)
+            alert('Something went wrong, try reloading. If the problem persists contact the developer')
         }
     }
 }

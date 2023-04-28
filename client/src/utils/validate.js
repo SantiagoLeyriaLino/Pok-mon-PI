@@ -15,6 +15,9 @@ export const validate =(input,pokemonsAll)=>{
     if(input.name && input.name.length < 3){
         errors.name = 'The name cannot be less than 3 characters'
     }
+    if(input.name && input.name.length > 15){
+        errors.name = 'El nombre no debe tener mas de 15 caracteres'
+    }
     if(!input.image || input.image.length==0){
         errors.image = 'Image is required'
     }

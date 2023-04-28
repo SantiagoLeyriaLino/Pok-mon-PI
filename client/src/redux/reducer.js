@@ -9,7 +9,6 @@ const initialState = {
     filterOrigin:[],
     pokemonCreated:[],
     types:[],
-    originalPokemonsAll:[],
     filterCombinedOrder:[],
 }
 
@@ -31,17 +30,15 @@ const rootReducer = (state = initialState, action) => {
             return {...state, pokemonCreated:action.payload}
 
         case FILTER_BY_TYPE:
-            var originalAllPokemons = state.originalPokemonsAll
             var filterOrigin = state.filterOrigin;
             var allPokemons = state.pokemonsAll;
             if(action.payload === 'all'){
-                return{...state, pokemons:[...filterOrigin], filterType:[...allPokemons],filterCombinedOrder:[...filterOrigin], originalFilterType:[...originalAllPokemons]}
+                return{...state, pokemons:[...filterOrigin], filterType:[...allPokemons],filterCombinedOrder:[...filterOrigin]}
             }
             else{
-                var ref = originalAllPokemons.filter((poke)=>poke.Types.includes(action.payload));
                 var bandera = allPokemons.filter((poke)=>poke.Types.includes(action.payload));
                 var typeFilter = filterOrigin.filter((poke)=>poke.Types.includes(action.payload));
-                    return{...state, pokemons:[...typeFilter], filterType:[...bandera],filterCombinedOrder:[...typeFilter], originalFilterType:[...ref]}
+                    return{...state, pokemons:[...typeFilter], filterType:[...bandera],filterCombinedOrder:[...typeFilter]}
             }
             
 
